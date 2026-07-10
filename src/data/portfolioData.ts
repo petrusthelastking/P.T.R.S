@@ -1,3 +1,8 @@
+export interface ProjectSpec {
+  label: string;
+  value: string;
+}
+
 export interface Project {
   num: string;
   status: 'COMPLETED' | 'IN PROGRESS';
@@ -9,6 +14,15 @@ export interface Project {
   tech: string[];
   role: string;
   link: string;
+  slug: string;
+  year: string;
+  specs: ProjectSpec[];
+  overview: string[];
+  impact: string;
+  challenges: string[];
+  architecture: string;
+  nextSlug: string;
+  nextTitle: string;
 }
 
 export interface BeyondBlockchainProject {
@@ -123,7 +137,29 @@ export const blockchainProjects: Project[] = [
     highlight: "Eliminates single-point-of-trust forgery risk for official document workflows.",
     tech: ["SOLIDITY", "IPFS", "ETHEREUM", "NEXT.JS", "HARDHAT", "ETHERS.JS"],
     role: "Full-Stack & Smart Contract Developer",
-    link: "#contact"
+    link: "/portfolio/blocknotary",
+    slug: "blocknotary",
+    year: "2024",
+    specs: [
+      { label: "Verification time", value: "< 2 detik" },
+      { label: "Hash algorithm", value: "SHA-256" },
+      { label: "Storage layer", value: "IPFS + Ethereum" },
+      { label: "Smart contract standard", value: "Custom ERC" }
+    ],
+    overview: [
+      "BlockNotary menyelesaikan masalah fundamental: bagaimana kita membuktikan sebuah dokumen asli tanpa bergantung pada satu otoritas terpusat yang bisa korup atau gagal?",
+      "Solusinya adalah menyimpan kriptografis hash (SHA-256) dari setiap dokumen ke dalam smart contract Ethereum. Siapapun bisa memverifikasi keaslian dokumen dengan membandingkan hashnya terhadap yang tersimpan on-chain — tanpa perlu mempercayai institusi manapun.",
+      "Dokumen fisik tetap di-host secara off-chain (IPFS), hanya fingerprint kriptografisnya yang on-chain. Ini menjaga privasi konten sekaligus memastikan proof of existence yang tidak bisa dimanipulasi."
+    ],
+    impact: "Eliminates single-point-of-trust forgery risk for official document workflows.",
+    challenges: [
+      "Menjaga privasi konten dokumen sambil tetap memungkinkan verifikasi publik — dijawab dengan hashing off-chain sebelum on-chain anchoring.",
+      "Gas cost optimisation untuk operasi batch notarissasi — dijawab dengan Merkle tree batching.",
+      "UX untuk pengguna non-teknis yang tidak paham wallet atau gas fee."
+    ],
+    architecture: "User uploads document → SHA-256 hash computed client-side → Hash + metadata submitted to Solidity contract → Contract emits NotarizationEvent → Document stored on IPFS → Verification flow reads hash from chain and compares.",
+    nextSlug: "verichain",
+    nextTitle: "VERICHAIN"
   },
   {
     num: "02",
@@ -135,7 +171,29 @@ export const blockchainProjects: Project[] = [
     highlight: "Building verifiable ReFi infrastructure for institutional carbon compliance.",
     tech: ["SOLIDITY", "ERC-1155", "CHAINLINK", "THE GRAPH", "NEXT.JS", "WAGMI"],
     role: "Blockchain Architect & Researcher",
-    link: "#contact"
+    link: "/portfolio/verichain",
+    slug: "verichain",
+    year: "2024",
+    specs: [
+      { label: "Verification time", value: "< 3 detik" },
+      { label: "Hash algorithm", value: "SHA-256" },
+      { label: "Storage layer", value: "IPFS + Polygon" },
+      { label: "Smart contract standard", value: "ERC-1155" }
+    ],
+    overview: [
+      "VeriChain menyelesaikan masalah transparansi dan kepercayaan pada voluntary carbon markets, di mana klaim penyerapan karbon seringkali sulit diverifikasi atau mengalami double-spending.",
+      "Protokol ini menokenisasi kredit karbon terverifikasi menjadi on-chain assets (ERC-1155) di jaringan Polygon, memungkinkan perdagangan yang transparan, pencegahan penjualan ganda secara real-time, dan pensiun kredit karbon yang terdokumentasi permanen.",
+      "Dengan mengintegrasikan chainlink oracles, data status sertifikat karbon off-chain di-sync secara aman ke dalam smart contract, menjembatani dunia nyata dan Web3 secara trustless."
+    ],
+    impact: "Building verifiable ReFi infrastructure for institutional carbon compliance.",
+    challenges: [
+      "Integrasi dApp dengan indexer chain untuk retrieval data pensiun secara real-time.",
+      "Memverifikasi keabsahan kredit karbon dari register eksternal (off-chain) secara trustless.",
+      "Menjaga konsistensi data antara ledger on-chain dan database sertifikat karbon."
+    ],
+    architecture: "Off-chain registry issues credit → Oracles verify validation status → Smart contract mints ERC-1155 Carbon Token → Trading on decentralised exchange → Token retirement burns asset and logs permanent proof on-chain.",
+    nextSlug: "auditchain",
+    nextTitle: "AUDITCHAIN"
   },
   {
     num: "03",
@@ -147,7 +205,29 @@ export const blockchainProjects: Project[] = [
     highlight: "Provides regulators and auditors with an unforgeable change-history record.",
     tech: ["HYPERLEDGER FABRIC", "GO", "NODE.JS", "COUCHDB", "DOCKER", "GRPC"],
     role: "Blockchain Developer & System Designer",
-    link: "#contact"
+    link: "/portfolio/auditchain",
+    slug: "auditchain",
+    year: "2023",
+    specs: [
+      { label: "Verification time", value: "< 1 detik" },
+      { label: "Consensus", value: "Raft / Kafka" },
+      { label: "State Database", value: "CouchDB" },
+      { label: "Framework", value: "Hyperledger Fabric" }
+    ],
+    overview: [
+      "AuditChain menyediakan solusi pencatatan transaksi yang tamper-evident dan tidak dapat dipalsukan untuk kebutuhan kepatuhan regulasi industri enterprise.",
+      "Menggunakan Hyperledger Fabric sebagai platform permissioned blockchain, sistem ini mencatat setiap perubahan data state sebagai transaksi yang ditandatangani secara kriptografis oleh organisasi terkait.",
+      "Ini memberikan log audit lengkap yang kredibel bagi regulator, meminimalkan dispute antar-organisasi, dan memastikan akuntabilitas operasional secara penuh."
+    ],
+    impact: "Provides regulators and auditors with an unforgeable change-history record.",
+    challenges: [
+      "Sinkronisasi throughput tinggi dengan latensi konsensus rendah.",
+      "Membatasi akses audit log hanya untuk regulator yang berwenang.",
+      "Integrasi gRPC dengan legacy system untuk pelacakan secara realtime."
+    ],
+    architecture: "Client system triggers action → Transaction proposal sent to endorsing nodes → Endorsements collected and submitted to Orderer → Block generated and committed to CouchDB state database → Event sent to client.",
+    nextSlug: "blocknotary",
+    nextTitle: "BLOCKNOTARY"
   }
 ];
 
