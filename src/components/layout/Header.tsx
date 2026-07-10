@@ -47,14 +47,14 @@ export function Header() {
             Portfolio
           </Link>
           <Link
-            href="/#about"
-            className="font-medium text-sm text-[#666] hover:text-[#1a1a1a] transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#1a1a1a] hover:after:w-full after:transition-all after:duration-300"
+            href="/about"
+            className={getLinkClass("/about")}
           >
             About
           </Link>
           <Link
-            href="/#library"
-            className="font-medium text-sm text-[#666] hover:text-[#1a1a1a] transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#1a1a1a] hover:after:w-full after:transition-all after:duration-300"
+            href="/library"
+            className={getLinkClass("/library")}
           >
             Library
           </Link>

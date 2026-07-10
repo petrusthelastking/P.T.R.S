@@ -34,10 +34,14 @@ PROJEK PORTOFOLIO/
 │   │   ├── favicon.ico            # App favicon
 │   │   ├── globals.css            # Global styles + Tailwind v4 + shadcn theme tokens
 │   │   ├── layout.tsx             # Root layout (fonts + metadata)
-│   │   └── page.tsx               # ✅ MODULAR PAGE — 23 lines (Refactored)
+│   │   ├── page.tsx               # ✅ MODULAR PAGE — 23 lines (Refactored)
+│   │   └── portfolio/             # [NEW] Portfolio sub-route
+│   │       ├── page.tsx           # [NEW] Main Portfolio menu page (ALL WORK list)
+│   │       └── [slug]/
+│   │           └── page.tsx       # [NEW] Dynamic project case studies detail page
 │   ├── components/
 │   │   ├── layout/
-│   │   │   ├── Header.tsx         # [NEW] Sticky navbar component
+│   │   │   ├── Header.tsx         # [UPDATED] Sticky navbar (Client Component with active link state)
 │   │   │   └── Footer.tsx         # [NEW] Dynamic copyright footer & contact section
 │   │   ├── sections/
 │   │   │   ├── Hero.tsx           # [NEW] Interactive Hero Section (Client Component)
@@ -45,12 +49,15 @@ PROJEK PORTOFOLIO/
 │   │   │   ├── Methodology.tsx    # [NEW] Roadmap fase pengerjaan proyek
 │   │   │   ├── Projects.tsx       # [NEW] Case Studies & Beyond Blockchain
 │   │   │   ├── Expertise.tsx      # [NEW] Stack Matrix grid
-│   │   │   └── Evidence.tsx       # [NEW] Track Record, stats, & principles
+│   │   │   ├── Evidence.tsx       # [NEW] Track Record, stats, & principles
+│   │   │   ├── PortfolioList.tsx  # [NEW] Container projects list for portfolio route
+│   │   │   └── PortfolioFooter.tsx# [NEW] Sand bg footer call-to-action for portfolio
 │   │   └── ui/
 │   │       ├── button.tsx         # shadcn Button (Base UI variant, TIDAK DIGUNAKAN)
-│   │       └── ProjectCard.tsx    # [NEW] Reusable card untuk blockchain projects
+│   │       ├── ProjectCard.tsx    # [NEW] Reusable card untuk blockchain projects
+│   │       └── PortfolioCard.tsx  # [NEW] Reusable custom card untuk portfolio listing
 │   ├── data/
-│   │   └── portfolioData.ts       # [NEW] Central data store (semua teks & list statis)
+│   │   └── portfolioData.ts       # [UPDATED] Central data store (semua teks & data case study)
 │   └── lib/
 │       └── utils.ts               # cn() utility (clsx + tailwind-merge)
 └── tsconfig.json                  # TypeScript config (target ES2017, bundler resolution)
@@ -117,9 +124,9 @@ PROJEK PORTOFOLIO/
 
 Halaman terbagi menjadi layout dan section-section modular yang diatur di dalam [page.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/app/page.tsx):
 
-| # | Komponen / Section | ID | Path File | Background | Deskripsi |
-|---|--------------------|-----|-----------|------------|-----------|
-| 1 | **Header/Navbar** | — | [Header.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/components/layout/Header.tsx) | `bg-sand/80 backdrop-blur-md` | Sticky header, logo SVG monogram, nav links (Home, Portfolio, About, Library), status badge "Open to work" |
+| # | Komponen / Section | ID / Path | Path File | Background | Deskripsi |
+|---|--------------------|-----------|-----------|------------|-----------|
+| 1 | **Header/Navbar** | — | [Header.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/components/layout/Header.tsx) | `bg-sand/80 backdrop-blur-md` | Sticky header, logo SVG monogram, dynamic active links (Home, Portfolio, About, Library), status badge "Open to work" |
 | 2 | **Hero Section** | `#home` | [Hero.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/components/sections/Hero.tsx) | `bg-sand` | Giant title "BLOCKCHAIN DEVELOPER", portrait, 5 floating tech badges, dynamic specialty selector (`"use client"`) |
 | 3 | **About Section** | `#about` | [About.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/components/sections/About.tsx) | `bg-[#f0eee9]` | Profil riset, kutipan, tag skill dinamis, biografi (who/what/how), collaboration pill |
 | 4 | **Methodology** | — | [Methodology.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/components/sections/Methodology.tsx) | `bg-[#0c0c0c]` (dark) | Roadmap 6 fase kerja dengan ikon Lucide dinamis dan outputs. |
@@ -127,28 +134,39 @@ Halaman terbagi menjadi layout dan section-section modular yang diatur di dalam 
 | 6 | **Expertise** | — | [Expertise.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/components/sections/Expertise.tsx) | `bg-sand` | Stack Matrix 4 kolom terintegrasi. |
 | 7 | **Evidence Section** | `#library` | [Evidence.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/components/sections/Evidence.tsx) | `bg-[#f0eee9]` | Grid track record stats, fokus riset, prinsip kerja, testimonial placeholder. |
 | 8 | **Contact & Footer** | `#contact` | [Footer.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/components/layout/Footer.tsx) | `bg-[#0c0c0c]` (dark) | Start a project call-to-actions, action buttons, dynamic copyright year. |
+| 9 | **Portfolio Menu** | `/portfolio` | [PortfolioList.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/components/sections/PortfolioList.tsx) | `bg-sand` (light) & `bg-[#0c0c0c]` (dark) | Dynamic routing page showing ALL WORK, 3 blockchain projects using [PortfolioCard.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/components/ui/PortfolioCard.tsx) and 2 dark IoT project cards. Includes [PortfolioFooter.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/components/sections/PortfolioFooter.tsx) CTA. |
+| 10| **Project Case Study**| `/portfolio/[slug]` | [[slug]/page.tsx](file:///c:/Peyimpanan Pribadi/PROJEK BESAR/PROJEK PORTOFOLIO/src/app/portfolio/[slug]/page.tsx) | `bg-sand` (light) & `bg-[#0c0c0c]` (dark) | Pre-rendered project case study showing details, sidebar stats and specs, overview columns, and horizontal flow system architecture layout. |
 
 ---
 
 ## 🏗️ 5. ARSITEKTUR & CARA KERJA (Refactored)
 
 ### Rendering Strategy
-- **React Server Components (RSC):** Halaman utama `page.tsx` serta komponen `Header`, `About`, `Methodology`, `Projects`, `Expertise`, `Evidence`, `Footer` adalah Server Components. Rendah JavaScript on-load, performa loading super cepat!
-- **Client Components ("use client"):** Komponen `Hero` diekstrak khusus sebagai Client Component karena memerlukan React `useState` untuk fungsionalitas interaktif pergantian spesialisasi.
+- **React Server Components (RSC):** Halaman utama `page.tsx`, dynamic project detail `[slug]/page.tsx`, sub-page `/portfolio/page.tsx` serta komponen `Header`, `About`, `Methodology`, `Projects`, `PortfolioList`, `PortfolioFooter`, `Expertise`, `Evidence`, `Footer` adalah Server Components. Rendah JavaScript on-load, performa loading super cepat!
+- **Client Components ("use client"):** Komponen `Hero` dan `Header` diekstrak khusus sebagai Client Component karena memerlukan React `useState` / Next.js `usePathname` untuk interaktifitas pergantian spesialisasi dan deteksi active link.
 
 ### Component Architecture
 ```
-RootLayout (layout.tsx)           ← Server Component
-└── Home (page.tsx)               ← Server Component
-    ├── Header                    ← Server Component
-    ├── Hero Section              ← Client Component ("use client" - specialty selector)
-    ├── About Section             ← Server Component
-    ├── Methodology Section       ← Server Component
-    ├── Projects Section          ← Server Component
-    │   └── ProjectCard (x3)      ← Server Component (reusable)
-    ├── Expertise Section         ← Server Component
-    ├── Evidence Section          ← Server Component
-    └── Footer                    ← Server Component
+RootLayout (layout.tsx)                 ← Server Component
+├── Home (page.tsx)                     ← Server Component
+│   ├── Header                          ← Client Component ("use client" - active link)
+│   ├── Hero Section                    ← Client Component ("use client" - specialty selector)
+│   ├── About Section                   ← Server Component
+│   ├── Methodology Section             ← Server Component
+│   ├── Projects Section                ← Server Component
+│   │   └── ProjectCard (x3)            ← Server Component (reusable)
+│   ├── Expertise Section               ← Server Component
+│   ├── Evidence Section                ← Server Component
+│   └── Footer                          ← Server Component
+├── Portfolio (portfolio/page.tsx)       ← Server Component
+│   ├── Header                          ← Client Component
+│   ├── PortfolioList                   ← Server Component
+│   │   └── PortfolioCard (x3)          ← Server Component (reusable)
+│   └── PortfolioFooter                 ← Server Component
+└── Project Detail ([slug]/page.tsx)     ← Server Component
+    ├── Header                          ← Client Component
+    ├── Project Detail Content          ← Server Component
+    └── Pagination Footer               ← Server Component
 ```
 
 ### Data Flow
@@ -194,14 +212,14 @@ Semua data di-import dari [portfolioData.ts](file:///c:/Peyimpanan Pribadi/PROJE
 
 | Metric | Sebelum | Sesudah | Keterangan |
 |--------|---------|---------|------------|
-| Total Source Files | 4 | **12** | Bertambah karena modulasi komponen |
-| Total Components | 1 | **10** | Extract components & subcomponents |
+| Total Source Files | 4 | **17** | Bertambah karena modulasi & dynamic routing |
+| Total Components | 1 | **13** | Extract components & subcomponents |
 | Baris Kode `page.tsx` | 1163 | **23** | Turun drastis (-98%) |
-| Data Location | Inline JSX | **portfolioData.ts** | Sentralisasi data |
+| Data Location | Inline JSX | **portfolioData.ts** | Sentralisasi data & metadata case studies |
 | Dynamic Mapping | No | **Yes** | Menggunakan array `.map()` |
 | Unused Imports | 9 | **0** | Bersih dari unused lucide icons |
 | Copyright Year | Hardcoded (2024) | **Dinamis (Auto)** | Mengikuti tahun berjalan |
-| Build Status | — | **Success** | Berhasil built prerendered static page |
+| Build Status | — | **Success** | Berhasil build static & dynamic SSG pages |
 
 ---
 
