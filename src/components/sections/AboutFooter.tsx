@@ -27,6 +27,15 @@ export function AboutFooter() {
               <span>Email Langsung</span>
             </a>
 
+            {/* Minta Resume Penelitian */}
+            <a
+              href="mailto:hello@ptrs.dev?subject=Request%20for%20Research%20Resume"
+              className="inline-flex items-center gap-2 px-6 py-3.5 bg-zinc-900 border border-zinc-800 hover:border-zinc-700 text-white font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300 active:scale-95 shrink-0 group"
+            >
+              <ArrowUpRight className="w-4 h-4 text-accent-red group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-300" />
+              <span>Minta Resume Penelitian</span>
+            </a>
+
             {/* Lihat Proyek Button */}
             <Link
               href="/#portfolio"
