@@ -290,7 +290,10 @@ export function LibraryIntro() {
                   delay={index * 100}
                   duration={750}
                 >
-                  <div className="group bg-white/40 hover:bg-white border border-border-gray/60 p-8 sm:p-10 rounded-3xl transition-all duration-350 hover:shadow-md flex flex-col justify-between gap-8 h-full">
+                  <Link
+                    href={article.link}
+                    className="group bg-white/40 hover:bg-white border border-border-gray/60 p-8 sm:p-10 rounded-3xl transition-all duration-350 hover:shadow-md flex flex-col justify-between gap-8 h-full cursor-pointer"
+                  >
                     <div>
                       {/* Metadata */}
                       <div className="flex items-center gap-3">
@@ -325,14 +328,13 @@ export function LibraryIntro() {
                       </div>
                     </div>
 
-                    <Link
-                      href={article.link}
-                      className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1a1a1a] hover:text-accent-red transition-colors w-max group-hover:translate-x-1 duration-300"
+                    <div
+                      className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1a1a1a] group-hover:text-accent-red transition-colors w-max group-hover:translate-x-1 duration-300"
                     >
                       <span>Baca Riset</span>
                       <span>&rarr;</span>
-                    </Link>
-                  </div>
+                    </div>
+                  </Link>
                 </ScrollReveal>
               );
             })}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Link from "next/link";
 import { FlaskConical, FileText, Notebook, Lightbulb } from "lucide-react";
 import { libraryArticles, activeResearch, LibraryArticle } from "@/data/libraryData";
 import { ScrollReveal } from "@/components/common/ScrollReveal";
@@ -98,7 +99,10 @@ export function LibraryContent() {
                       </span>
 
                       {/* Content Card Container */}
-                      <div className="flex-1 bg-white/40 border border-border-gray/60 rounded-3xl p-8 hover:bg-white hover:shadow-md transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6 relative group">
+                      <Link
+                        href={article.link}
+                        className="flex-1 bg-white/40 border border-border-gray/60 rounded-3xl p-8 hover:bg-white hover:shadow-md transition-all duration-300 flex flex-col md:flex-row md:items-center justify-between gap-6 relative group cursor-pointer"
+                      >
                         <div className="flex-1">
                           {/* Metadata row */}
                           <div className="flex items-center gap-3">
@@ -134,14 +138,13 @@ export function LibraryContent() {
                         </div>
 
                         {/* Read link arrow right */}
-                        <a
-                          href={article.link}
-                          className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1a1a1a] hover:text-accent-red transition-colors shrink-0 select-none self-end md:self-auto group-hover:translate-x-1 transform duration-300"
+                        <div
+                          className="inline-flex items-center gap-1.5 text-xs font-extrabold text-[#1a1a1a] group-hover:text-accent-red transition-colors shrink-0 select-none self-end md:self-auto group-hover:translate-x-1 transform duration-300"
                         >
-                          <span className="border-b-2 border-transparent hover:border-current py-0.5">Baca</span>
+                          <span className="border-b-2 border-transparent group-hover:border-current py-0.5">Baca</span>
                           <span className="text-[14px]">&rarr;</span>
-                        </a>
-                      </div>
+                        </div>
+                      </Link>
                     </div>
                   </ScrollReveal>
                 );
