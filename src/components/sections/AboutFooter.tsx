@@ -29,7 +29,7 @@ export function AboutFooter() {
 
             {/* Lihat Proyek Button */}
             <Link
-              href="/portfolio"
+              href="/#portfolio"
               className="inline-flex items-center gap-2 px-6 py-3.5 bg-transparent border border-zinc-800 hover:border-zinc-700 hover:bg-zinc-900/50 text-white font-bold text-xs uppercase tracking-wider rounded-full transition-all duration-300 active:scale-95 shrink-0 group"
             >
               <span>Lihat Proyek</span>

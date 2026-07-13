@@ -6,9 +6,18 @@ import { usePathname } from "next/navigation";
 
 export function Header() {
   const pathname = usePathname();
+  const isLibraryPage = pathname?.startsWith("/library");
 
   const getLinkClass = (path: string) => {
-    const isActive = pathname === path;
+    let isActive = false;
+    if (path === "/library") {
+      isActive = pathname === "/library";
+    } else if (path === "/library/riset-blockchain") {
+      isActive = pathname?.startsWith("/library/riset-blockchain") || false;
+    } else {
+      isActive = pathname === path;
+    }
+      
     return isActive
       ? "font-bold text-sm text-[#1a1a1a] relative py-1 after:absolute after:bottom-0 after:left-0 after:w-full after:h-0.5 after:bg-[#1a1a1a] transition-all"
       : "font-medium text-sm text-[#666] hover:text-[#1a1a1a] transition-colors relative py-1 after:absolute after:bottom-0 after:left-0 after:w-0 after:h-0.5 after:bg-[#1a1a1a] hover:after:w-full after:transition-all after:duration-300";
@@ -34,30 +43,43 @@ export function Header() {
 
         {/* Navigation Links */}
         <nav className="hidden md:flex items-center gap-10">
-          <Link
-            href="/"
-            className={getLinkClass("/")}
-          >
-            Home
-          </Link>
-          <Link
-            href="/portfolio"
-            className={getLinkClass("/portfolio")}
-          >
-            Portfolio
-          </Link>
-          <Link
-            href="/about"
-            className={getLinkClass("/about")}
-          >
-            About
-          </Link>
-          <Link
-            href="/library"
-            className={getLinkClass("/library")}
-          >
-            Library
-          </Link>
+          {isLibraryPage ? (
+            <>
+              <Link
+                href="/library"
+                className={getLinkClass("/library")}
+              >
+                Home
+              </Link>
+              <Link
+                href="/library/riset-blockchain"
+                className={getLinkClass("/library/riset-blockchain")}
+              >
+                Riset Blockchain
+              </Link>
+            </>
+          ) : (
+            <>
+              <Link
+                href="/"
+                className={getLinkClass("/")}
+              >
+                Home
+              </Link>
+              <Link
+                href="/portfolio"
+                className={getLinkClass("/portfolio")}
+              >
+                Portfolio
+              </Link>
+              <Link
+                href="/about"
+                className={getLinkClass("/about")}
+              >
+                About
+              </Link>
+            </>
+          )}
         </nav>
 
         {/* Status Badge */}

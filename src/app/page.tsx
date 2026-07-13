@@ -5,6 +5,7 @@ import { Methodology } from "@/components/sections/Methodology";
 import { Projects } from "@/components/sections/Projects";
 import { Expertise } from "@/components/sections/Expertise";
 import { Evidence } from "@/components/sections/Evidence";
+import { LibraryHighlight } from "@/components/sections/LibraryHighlight";
 import { Footer } from "@/components/layout/Footer";
 
 export default function Home() {
@@ -16,6 +17,7 @@ export default function Home() {
         <About />
         <Methodology />
         <Projects />
+        <LibraryHighlight />
         <Expertise />
         <Evidence />
       </main>
