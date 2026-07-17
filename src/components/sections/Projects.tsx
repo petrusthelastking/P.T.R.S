@@ -62,7 +62,7 @@ export function Projects() {
                     <div className="flex flex-col gap-4 [transform-style:preserve-3d]">
                       <div className="flex items-center justify-between" style={{ transform: "translateZ(20px)" }}>
                         <div className="w-10 h-10 rounded-full bg-slate-900 flex items-center justify-center font-bold text-white text-sm">
-                          {project.initialLetter}
+                          {project.title.charAt(0)}
                         </div>
                         <span className="text-[10px] font-bold text-accent-red uppercase tracking-wider">
                           {project.role}

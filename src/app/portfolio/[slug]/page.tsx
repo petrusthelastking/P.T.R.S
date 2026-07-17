@@ -1,9 +1,25 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowLeft, ArrowRight, Shield, Leaf, FileText, Zap } from "lucide-react";
+import { 
+  ArrowLeft, 
+  ArrowRight, 
+  Shield, 
+  Leaf, 
+  FileText, 
+  Zap,
+  Palette,
+  Flame,
+  Laptop,
+  Sprout,
+  Activity,
+  Cpu
+} from "lucide-react";
 import { Header } from "@/components/layout/Header";
-import { blockchainProjects } from "@/data/portfolioData";
+import { blockchainProjects, uiProjects, generalProjects } from "@/data/portfolioData";
 import { ScrollReveal } from "@/components/common/ScrollReveal";
+
+const allProjects = [...blockchainProjects, ...uiProjects, ...generalProjects];
 
 interface PageProps {
   params: Promise<{
@@ -11,21 +27,44 @@ interface PageProps {
   }>;
 }
 
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const project = allProjects.find((p) => p.slug === slug);
+  if (!project) return {};
+
+  return {
+    title: project.title,
+    description: project.desc,
+    openGraph: {
+      title: `${project.title} | ptrsdev`,
+      description: project.desc,
+      type: "article",
+      url: `https://ptrsdev.com/portfolio/${project.slug}`,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.title} | ptrsdev`,
+      description: project.desc,
+    }
+  };
+}
+
 export async function generateStaticParams() {
-  return blockchainProjects.map((p) => ({
+  return allProjects.map((p) => ({
     slug: p.slug,
   }));
 }
 
 export default async function ProjectDetailPage({ params }: PageProps) {
   const { slug } = await params;
-  const project = blockchainProjects.find((p) => p.slug === slug);
+  const project = allProjects.find((p) => p.slug === slug);
 
   if (!project) {
     notFound();
   }
 
   const isCompleted = project.status === "COMPLETED";
+  const isUi = project.categories.includes("UI");
 
   // Map icon based on slug/num
   const getIcon = () => {
@@ -36,6 +75,18 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         return <Leaf className="w-7 h-7 text-white" />;
       case "03":
         return <FileText className="w-7 h-7 text-white" />;
+      case "04":
+        return <Palette className="w-7 h-7 text-white" />;
+      case "05":
+        return <Flame className="w-7 h-7 text-white" />;
+      case "06":
+        return <Laptop className="w-7 h-7 text-white" />;
+      case "07":
+        return <Sprout className="w-7 h-7 text-white" />;
+      case "08":
+        return <Activity className="w-7 h-7 text-white" />;
+      case "09":
+        return <Cpu className="w-7 h-7 text-white" />;
       default:
         return <Shield className="w-7 h-7 text-white" />;
     }
@@ -50,6 +101,18 @@ export default async function ProjectDetailPage({ params }: PageProps) {
         return "bg-[#0e3b24]"; // Dark Green
       case "03":
         return "bg-[#281140]"; // Dark Purple
+      case "04":
+        return "bg-amber-700"; // Gold
+      case "05":
+        return "bg-[#d92525]"; // Red accent
+      case "06":
+        return "bg-sky-600"; // Sky Blue
+      case "07":
+        return "bg-emerald-600"; // Emerald Green
+      case "08":
+        return "bg-indigo-600"; // Indigo Blue
+      case "09":
+        return "bg-zinc-800"; // Dark Zinc
       default:
         return "bg-[#1a1a1a]";
     }
@@ -215,7 +278,7 @@ export default async function ProjectDetailPage({ params }: PageProps) {
           <div className="max-w-7xl mx-auto">
             <ScrollReveal direction="up" duration={700}>
               <span className="text-[10px] font-bold tracking-[0.2em] text-zinc-500 uppercase block select-none">
-                // SYSTEM ARCHITECTURE
+                {isUi ? "// DESIGN WORKFLOW" : "// SYSTEM ARCHITECTURE"}
               </span>
               <div className="bg-[#141414] border border-zinc-900 rounded-2xl p-8 mt-6">
                 <div className="font-mono text-xs text-zinc-300 leading-relaxed overflow-x-auto whitespace-pre-wrap select-all">

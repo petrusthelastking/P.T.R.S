@@ -1,6 +1,12 @@
+import type { Metadata } from "next";
 import { Header } from "@/components/layout/Header";
 import { PortfolioList } from "@/components/sections/PortfolioList";
 import { PortfolioFooter } from "@/components/sections/PortfolioFooter";
+
+export const metadata: Metadata = {
+  title: "Portfolio",
+  description: "Daftar lengkap proyek blockchain, smart contracts, decentralized applications (dApp), dan sistem IoT yang dibangun oleh Petrus Rosario (ptrsdev).",
+};
 
 export default function PortfolioPage() {
   return (
