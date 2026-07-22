@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Download, AlertCircle, Terminal, Globe } from "lucide-react";
+import { ArrowLeft, Download, AlertCircle, Terminal, Globe, Maximize2, X } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { AboutFooter } from "@/components/sections/AboutFooter";
 import { ScrollReveal } from "@/components/common/ScrollReveal";
@@ -10,6 +10,7 @@ import { ScrollReveal } from "@/components/common/ScrollReveal";
 export default function SuiResearchDetailPage() {
   const [lang, setLang] = useState<"id" | "en">("id");
   const [activeTab, setActiveTab] = useState<"contract" | "benchmark" | "chaos">("contract");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [hoveredPoint, setHoveredPoint] = useState<{ x: number; y: number; valX: number; valY: number; line: string } | null>(null);
 
   // SVG Chart data
@@ -52,6 +53,7 @@ export default function SuiResearchDetailPage() {
 
   const sections = [
     { id: "abstract", labelId: "Abstract", labelEn: "Abstract" },
+    { id: "infografis", labelId: "Infografis Ringkasan", labelEn: "Summary Infographic" },
     { id: "pendahuluan", labelId: "1. Pendahuluan", labelEn: "1. Introduction" },
     { id: "arsitektur", labelId: "2. Arsitektur SUI", labelEn: "2. SUI Architecture" },
     { id: "metodologi", labelId: "3. Metodologi", labelEn: "3. Methodology" },
@@ -280,7 +282,7 @@ echo "Counter value after recovery: $RECOVERED_VAL"`;
                   // TECHNICAL RESEARCH REPORT
                 </span>
                 <span className="px-2 py-0.5 rounded bg-zinc-200/60 text-zinc-700 font-mono text-[9px] font-bold uppercase tracking-wider">
-                  {lang === "id" ? "BILINGUAL VERSION (ID / EN)" : "BILINGUAL VERSION (ID / EN)"}
+                  BILINGUAL VERSION (ID / EN)
                 </span>
               </div>
               <h1 className="font-bebas text-5xl sm:text-6xl md:text-7xl leading-[0.95] text-[#1a1a1a] tracking-tight uppercase">
@@ -409,6 +411,57 @@ echo "Counter value after recovery: $RECOVERED_VAL"`;
                         ? "Blockchain Sui mewakili pergeseran mendasar dalam desain jaringan terdesentralisasi dengan memperkenalkan model data berpusat pada objek (object-centric) dan memisahkan diseminasi transaksi dari pengurutan konsensus global. Laporan riset ini mengeksplorasi inovasi arsitektur utama Sui, termasuk bahasa pemrograman Sui Move, eksekusi paralel, dan mesin konsensus Mysticeti. Kami mendokumentasikan deployment jaringan multi-node lokal Sui dalam lingkungan kontainer dan melakukan pengujian performa (TPS dan latensi di bawah beban stres), chaos testing (ketahanan kegagalan node), serta evaluasi smart contract. Temuan kami menunjukkan kemampuan praktis Sui dalam mencapai finalitas sub-detik dan throughput konkurensi yang tinggi, sekaligus mengidentifikasi keterbatasan operasional dan tantangan tata kelola terdesentralisasi."
                         : "The Sui blockchain represents a fundamental shift in decentralized network design by introducing an object-centric data model and decoupling transaction dissemination from global consensus ordering. This research paper explores Sui's key architectural innovations, including the Sui Move programming language, parallel execution, and the Mysticeti consensus engine. We document the deployment of a local multi-node Sui network in a containerized environment and conduct performance benchmarking (TPS and latency under stress load), chaos testing (validator node resilience), and smart contract evaluations. Our findings demonstrate Sui's practical capability to achieve sub-second finality and high concurrency throughput, while identifying operational trade-offs and decentralized governance challenges."}
                     </p>
+                  </div>
+                </ScrollReveal>
+              </article>
+
+              {/* EXECUTIVE INFOGRAPHIC SUMMARY SECTION */}
+              <article id="infografis" className="scroll-mt-28">
+                <ScrollReveal direction="up" duration={800}>
+                  <div className="bg-[#0c0c0c] border border-zinc-850 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col gap-5">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-800">
+                      <div>
+                        <span className="text-accent-red font-extrabold text-[10px] uppercase tracking-widest block mb-1">
+                          // EXECUTIVE RESEARCH INFOGRAPHIC
+                        </span>
+                        <h3 className="font-bebas text-2xl sm:text-3xl uppercase tracking-wide text-white leading-none">
+                          {lang === "id" ? "ANALISIS PERFORMA & ARSITEKTUR BLOCKCHAIN SUI" : "PERFORMANCE & ARCHITECTURE ANALYSIS OF SUI BLOCKCHAIN"}
+                        </h3>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button
+                          onClick={() => setIsModalOpen(true)}
+                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white text-[#1a1a1a] hover:bg-[#eae8e4] text-xs font-extrabold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm active:scale-95"
+                        >
+                          <Maximize2 className="w-3.5 h-3.5 text-accent-red" />
+                          <span>{lang === "id" ? "Perbesar Infografis" : "Full View"}</span>
+                        </button>
+                        <a
+                          href="/infografis-sui.png"
+                          download="Infografis-Sui-Petrus-Rosario.png"
+                          className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer"
+                          title="Download Infographic HD"
+                        >
+                          <Download className="w-3.5 h-3.5 text-accent-red" />
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Image Display Card */}
+                    <div 
+                      onClick={() => setIsModalOpen(true)}
+                      className="relative rounded-2xl overflow-hidden border border-zinc-800 cursor-pointer group bg-zinc-950/80 shadow-md"
+                    >
+                      <img
+                        src="/infografis-sui.png"
+                        alt="Analisis Performa dan Arsitektur Blockchain SUI Infografis"
+                        className="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white font-extrabold text-xs uppercase tracking-wider">
+                        <Maximize2 className="w-5 h-5 text-accent-red" />
+                        <span>{lang === "id" ? "Klik Untuk Memperbesar (Full View)" : "Click to Enlarge (Full View)"}</span>
+                      </div>
+                    </div>
                   </div>
                 </ScrollReveal>
               </article>
@@ -894,12 +947,12 @@ echo "Counter value after recovery: $RECOVERED_VAL"`;
               <article id="evaluasi" className="scroll-mt-28 flex flex-col gap-4">
                 <ScrollReveal direction="up" duration={800}>
                   <h2 className="font-bebas text-3xl sm:text-4xl text-[#1a1a1a] tracking-wide border-b border-border-gray pb-2 uppercase">
-                    {lang === "id" ? "5. Evaluasi Eksperimental dan Hasil" : "5. Experimental Evaluation & Results"}
+                    {lang === "id" ? "5. Evaluasi EksperIMENTAL DAN HASIL" : "5. Experimental Evaluation & Results"}
                   </h2>
                   <p className="text-xs sm:text-[13px] text-[#444] leading-relaxed font-medium mt-4">
                     {lang === "id"
                       ? "Bagian ini menyajikan data kuantitatif dari sembilan skenario pengujian yang telah didefinisikan sebelumnya."
-                      : "This section presents quantitative data gathered across all nine test scenarios."}
+                      : "This section presents quantitative empirical data across all nine test scenarios."}
                   </p>
                 </ScrollReveal>
 
@@ -1334,6 +1387,32 @@ echo "Counter value after recovery: $RECOVERED_VAL"`;
           </div>
         </div>
       </main>
+
+      {/* LIGHTBOX FULLVIEW MODAL FOR SUI INFOGRAPHIC */}
+      {isModalOpen && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-200"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div 
+            className="relative max-w-6xl w-full max-h-[90vh] flex flex-col items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute -top-12 right-0 p-2 text-zinc-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider bg-zinc-900/80 px-3 py-1.5 rounded-full border border-zinc-800"
+            >
+              <X className="w-4 h-4 text-accent-red" />
+              <span>{lang === "id" ? "Tutup" : "Close"}</span>
+            </button>
+            <img
+              src="/infografis-sui.png"
+              alt="Analisis Performa dan Arsitektur Blockchain SUI Infografis Fullview"
+              className="max-w-full max-h-[85vh] object-contain rounded-2xl border border-zinc-800 shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
 
       <AboutFooter />
     </div>
