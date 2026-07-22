@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { ArrowLeft, Download, AlertCircle, Terminal, Globe, Layers, Cpu, Database } from "lucide-react";
+import { ArrowLeft, Download, AlertCircle, Terminal, Globe, Maximize2, X } from "lucide-react";
 import { Header } from "@/components/layout/Header";
 import { AboutFooter } from "@/components/sections/AboutFooter";
 import { ScrollReveal } from "@/components/common/ScrollReveal";
@@ -10,6 +10,7 @@ import { ScrollReveal } from "@/components/common/ScrollReveal";
 export default function CelestiaResearchDetailPage() {
   const [lang, setLang] = useState<"id" | "en">("id");
   const [activeTab, setActiveTab] = useState<"submit" | "metrics">("submit");
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [hoveredPoint, setHoveredPoint] = useState<{ x: number; y: number; blobSize: string; throughput: number; dasLatency: number } | null>(null);
 
   // SVG Chart data: Throughput (MB/s) and DAS Latency (ms) vs Blob Size
@@ -50,6 +51,7 @@ export default function CelestiaResearchDetailPage() {
 
   const sections = [
     { id: "abstract", labelId: "Abstract", labelEn: "Abstract" },
+    { id: "infografis", labelId: "Infografis Ringkasan", labelEn: "Summary Infographic" },
     { id: "pendahuluan", labelId: "1. Pendahuluan", labelEn: "1. Introduction" },
     { id: "arsitektur", labelId: "2. Arsitektur Celestia", labelEn: "2. Celestia Architecture" },
     { id: "metodologi", labelId: "3. Metodologi", labelEn: "3. Methodology" },
@@ -330,6 +332,57 @@ done`;
                         ? "Arsitektur blockchain monolitik menghadapi hambatan skalabilitas yang mendasar karena membebankan tugas eksekusi smart contract, pengurutan konsensus, dan ketersediaan data (Data Availability/DA) pada satu set validator yang sama. Celestia hadir sebagai pionir arsitektur blockchain modular dengan memisahkan lapisan eksekusi dari lapisan konsensus dan ketersediaan data. Laporan riset ini mengeksplorasi secara empiris inovasi Celestia, termasuk Data Availability Sampling (DAS), 2D Reed-Solomon Erasure Coding, dan Namespaced Merkle Trees (NMT). Kami mendeploy jaringan multi-node Celestia (Validator, Bridge Node, dan Light Node) dalam lingkungan kontainer terkendali untuk menguji throughput injeksi blob data, latensi verifikasi sampel oleh Light Node, serta ketahanan rekonstruksi data saat terjadi kehilangan paket. Hasil pengujian menunjukkan bahwa Celestia mampu memverifikasi ketersediaan megabyte data blob hanya dalam waktu sub-detik melalui sampel acak berukuran sangat kecil tanpa perlu mengunduh seluruh isi blok."
                         : "Monolithic blockchain architectures encounter severe scalability bottlenecks by placing smart contract execution, consensus ordering, and data availability (DA) upon the exact same validator set. Celestia pioneers a modular blockchain paradigm by decoupling execution from consensus and data availability. This research paper empirically investigates Celestia's core technical innovations, including Data Availability Sampling (DAS), 2D Reed-Solomon Erasure Coding, and Namespaced Merkle Trees (NMTs). We document the deployment of a containerized local multi-node Celestia network (Validator, Bridge Node, and Light Nodes) to benchmark blob submission throughput, Light Node sampling verification latency, and data reconstruction resilience under loss scenarios. Our empirical findings demonstrate that Celestia enables light nodes to verify megabytes of blob data availability within sub-second thresholds through minimal random sampling without downloading full block payloads."}
                     </p>
+                  </div>
+                </ScrollReveal>
+              </article>
+
+              {/* EXECUTIVE INFOGRAPHIC SUMMARY SECTION */}
+              <article id="infografis" className="scroll-mt-28">
+                <ScrollReveal direction="up" duration={800}>
+                  <div className="bg-[#0c0c0c] border border-zinc-850 rounded-3xl p-6 sm:p-8 text-white shadow-xl flex flex-col gap-5">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-800">
+                      <div>
+                        <span className="text-accent-red font-extrabold text-[10px] uppercase tracking-widest block mb-1">
+                          // EXECUTIVE RESEARCH INFOGRAPHIC
+                        </span>
+                        <h3 className="font-bebas text-2xl sm:text-3xl uppercase tracking-wide text-white leading-none">
+                          {lang === "id" ? "MEMBEDAH CELESTIA: PIONIR ARSITEKTUR BLOCKCHAIN MODULAR" : "DECONSTRUCTING CELESTIA: PIONEER OF MODULAR BLOCKCHAIN ARCHITECTURE"}
+                        </h3>
+                      </div>
+                      <div className="flex items-center gap-2 shrink-0">
+                        <button
+                          onClick={() => setIsModalOpen(true)}
+                          className="inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-white text-[#1a1a1a] hover:bg-[#eae8e4] text-xs font-extrabold uppercase tracking-wider transition-all duration-200 cursor-pointer shadow-sm active:scale-95"
+                        >
+                          <Maximize2 className="w-3.5 h-3.5 text-accent-red" />
+                          <span>{lang === "id" ? "Perbesar Infografis" : "Full View"}</span>
+                        </button>
+                        <a
+                          href="/infografis-celestia.jpg"
+                          download="Infografis-Celestia-Petrus-Rosario.jpg"
+                          className="inline-flex items-center gap-1.5 px-3 py-2.5 rounded-xl bg-zinc-900 border border-zinc-700 hover:bg-zinc-800 text-white text-xs font-bold uppercase tracking-wider transition-all duration-200 cursor-pointer"
+                          title="Download Infographic HD"
+                        >
+                          <Download className="w-3.5 h-3.5 text-accent-red" />
+                        </a>
+                      </div>
+                    </div>
+
+                    {/* Image Display Card */}
+                    <div 
+                      onClick={() => setIsModalOpen(true)}
+                      className="relative rounded-2xl overflow-hidden border border-zinc-800 cursor-pointer group bg-zinc-950/80 shadow-md"
+                    >
+                      <img
+                        src="/infografis-celestia.jpg"
+                        alt="Membedah Celestia Infografis"
+                        className="w-full h-auto object-cover group-hover:scale-[1.01] transition-transform duration-300"
+                      />
+                      <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center gap-2 text-white font-extrabold text-xs uppercase tracking-wider">
+                        <Maximize2 className="w-5 h-5 text-accent-red" />
+                        <span>{lang === "id" ? "Klik Untuk Memperbesar (Full View)" : "Click to Enlarge (Full View)"}</span>
+                      </div>
+                    </div>
                   </div>
                 </ScrollReveal>
               </article>
@@ -881,6 +934,32 @@ done`;
           </div>
         </div>
       </main>
+
+      {/* LIGHTBOX FULLVIEW MODAL FOR INFOGRAPHIC */}
+      {isModalOpen && (
+        <div 
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4 sm:p-8 animate-in fade-in duration-200"
+          onClick={() => setIsModalOpen(false)}
+        >
+          <div 
+            className="relative max-w-6xl w-full max-h-[90vh] flex flex-col items-center justify-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              onClick={() => setIsModalOpen(false)}
+              className="absolute -top-12 right-0 p-2 text-zinc-400 hover:text-white transition-colors cursor-pointer flex items-center gap-1.5 text-xs font-extrabold uppercase tracking-wider bg-zinc-900/80 px-3 py-1.5 rounded-full border border-zinc-800"
+            >
+              <X className="w-4 h-4 text-accent-red" />
+              <span>{lang === "id" ? "Tutup" : "Close"}</span>
+            </button>
+            <img
+              src="/infografis-celestia.jpg"
+              alt="Membedah Celestia Infografis Fullview"
+              className="max-w-full max-h-[85vh] object-contain rounded-2xl border border-zinc-800 shadow-2xl"
+            />
+          </div>
+        </div>
+      )}
 
       <AboutFooter />
     </div>
