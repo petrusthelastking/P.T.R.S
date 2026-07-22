@@ -19,6 +19,16 @@ export const libraryArticles: LibraryArticle[] = [
     desc: "Laporan riset independen mengeksplorasi inovasi arsitektur Sui (Sui Move, paralel eksekusi, Mysticeti) disertai pengujian performa throughput (TPS), chaos testing validator, dan kompilasi smart contract.",
     tags: ["SUI", "MOVE", "MYSTICETI", "CHAOS TESTING", "BENCHMARK"],
     link: "/library/riset-blockchain/analisis-blockchain-sui"
+  },
+  {
+    index: "02",
+    status: "PUBLISHED",
+    category: "RESEARCH",
+    year: "2026",
+    title: "ANALISIS MENDALAM CELESTIA: ARSITEKTUR, DEPLOYMENT MODULAR, DAN BENCHMARKING KETERSEDIAAN DATA (DATA AVAILABILITY)",
+    desc: "Laporan riset akademis independen mengeksplorasi arsitektur blockchain modular Celestia, Data Availability Sampling (DAS), 2D Reed-Solomon Erasure Coding, serta benchmarking throughput blob data.",
+    tags: ["CELESTIA", "DATA AVAILABILITY", "DAS", "ERASURE CODING", "MODULAR"],
+    link: "/library/riset-blockchain/analisis-blockchain-celestia"
   }
 ];
 
