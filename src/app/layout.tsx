@@ -81,7 +81,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="id" className="scroll-smooth">
+    <html lang="id" className="scroll-smooth" suppressHydrationWarning>
       <body className={`${bigShoulders.variable} ${plusJakartaSans.variable} font-sans min-h-screen bg-sand antialiased text-[#1a1a1a]`}>
         {children}
       </body>
