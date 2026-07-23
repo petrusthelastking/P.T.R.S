@@ -20,7 +20,7 @@ export default function Home() {
         "alternateName": "ptrsdev",
         "jobTitle": "Blockchain Developer & Researcher",
         "url": "https://ptrsdev.com",
-        "image": "https://ptrsdev.com/LOGO%20SAYA.png",
+        "image": "https://ptrsdev.com/logo.png",
         "sameAs": [
           "https://github.com/petrusthelastking",
           "https://linkedin.com"

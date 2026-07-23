@@ -30,11 +30,12 @@ export function Header() {
         <Link href="/" className="flex items-center gap-3 group">
           {/* Logo PNG */}
           <Image
-            src="/LOGO SAYA.png"
+            src="/logo.png"
             alt="P.T.R.S Logo"
             width={48}
             height={48}
-            className="w-12 h-12 object-contain"
+            className="w-10 h-10 md:w-12 md:h-12 object-contain group-hover:scale-105 transition-transform"
+            priority
           />
           <span className="font-bebas text-2xl tracking-wider text-[#1a1a1a]">
             <span className="text-accent-red">P</span>.T.R.S

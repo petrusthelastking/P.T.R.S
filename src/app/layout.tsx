@@ -35,6 +35,11 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Petrus Tyang Agung Rosario", url: "https://ptrsdev.com" }],
   creator: "Petrus Tyang Agung Rosario",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
     title: "ptrsdev | Blockchain Developer & Researcher",
     description: "Portofolio profesional Petrus Rosario (ptrsdev) - Blockchain Developer & Researcher. Spesialisasi dalam smart contracts, protokol kriptografi, dan IoT.",
@@ -42,7 +47,7 @@ export const metadata: Metadata = {
     siteName: "ptrsdev Portfolio",
     images: [
       {
-        url: "/LOGO SAYA.png",
+        url: "/logo.png",
         width: 500,
         height: 500,
         alt: "ptrsdev Logo",
@@ -55,7 +60,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "ptrsdev | Blockchain Developer & Researcher",
     description: "Portofolio profesional Petrus Rosario (ptrsdev)",
-    images: ["/LOGO SAYA.png"],
+    images: ["/logo.png"],
   },
   robots: {
     index: true,
